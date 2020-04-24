@@ -1,14 +1,14 @@
 # mac-utils
 Mac-utils is a utility library for Mac computers
 
-##ScreenTools.py
+## ScreenTools.py
 Do you ever need to copy text from an image shown in a browser or from any windows shown in your mac? Do you want to capture the text and translate that to any language? You can use this simple script for that!!
 
 ScreenTools.py can be used to capture text from the screen. It also translates that text to Malayalam.
 
 ![Screenshot](screenshot.jpeg)
 
-###Installation
+#### Installation
 Install OpenCV
 `pip install opencv-python`
 
