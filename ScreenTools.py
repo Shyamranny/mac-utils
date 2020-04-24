@@ -8,8 +8,10 @@ import pytesseract
 import wx
 import requests 
 
+# url for translation
 URL = "https://translateapi.howtofixthis.com/"
 
+# GUI frame to be shown to the user
 class MyFrame(wx.Frame):    
     def __init__(self):
         super().__init__(parent=None, title='Screen Tool')
@@ -27,12 +29,15 @@ class MyFrame(wx.Frame):
         panel.SetSizer(my_sizer)
         self.Show()
 
-    def set_decoded_text(self, txt):
+    # set decoded text
+    def setDecodedText(self, txt):
         self.text_ctrl.SetValue(txt)
 
-    def set_translated_text(self, txt):
+    # set translated text
+    def setTranslatedText(self, txt):
         self.text_ctrl_translated.SetValue(txt)
 
+    # key up hanlder - to close the window when user clicks escape key
     def OnKeyUP(self, event):
         keyCode = event.GetKeyCode()
         if keyCode == wx.WXK_ESCAPE:
@@ -49,44 +54,44 @@ class App(wx.App):
         self.frame.SetFocus()
         return True
 
-    def set_decoded_text(self, txt):
-        self.frame.set_decoded_text(txt)
+    def setDecodedText(self, txt):
+        self.frame.setDecodedText(txt)
 
-    def set_translated_text(self, txt):
-        self.frame.set_translated_text(txt)
+    def setTranslatedText(self, txt):
+        self.frame.setTranslatedText(txt)
 
 if __name__ == '__main__':
 
+    # create a temp file to store the screen shot
     temp = tempfile.NamedTemporaryFile()
 
     try:
+        # mac command to get a screen shot and save to a file
         call(["screencapture", "-i", temp.name])
+
+        # OCR
         decoded_text = pytesseract.image_to_string(Image.open(temp.name))
         
+        # open app and set the decoded text
         app = App()
-        app.set_decoded_text(decoded_text)
-        
+        app.setDecodedText(decoded_text)
 
+        # params for translation query
         PARAMS = {
             'sourceLanguage':'en',
             'targetLanguage':'ml',
             'text':decoded_text
         } 
 
+        # get translated text
         r = requests.get(url = URL, params = PARAMS) 
         data = r.json() 
         
-        app.set_translated_text(data['translateText'])
+        # set translated text to the GUI
+        app.setTranslatedText(data['translateText'])
 
+        #show the app
         app.MainLoop()
 
     finally:
         temp.close()
-
-
-    
-
-
-
-
-
