@@ -22,3 +22,5 @@ Install requests
 `pip3 install requests`
 
 That's all. Then run `ScreenTools.py`. Your mouse pointer will turn into a selection pointer, you can select any portion form the screen. After selection, this program will capture the text from that selected area, display it in a window. Now you can select that text. This also translates the text to Malayalam.
+
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I2I8AUBM)
